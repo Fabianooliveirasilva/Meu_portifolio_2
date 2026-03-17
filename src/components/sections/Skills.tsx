@@ -129,7 +129,8 @@ export default function SkillsSection() {
             ● {t.skills.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            {t.skills.heading} <span className="gradient-text">{t.skills.heading_accent}</span>
+            {t.skills.heading}{" "}
+            <span className="gradient-text">{t.skills.heading_accent}</span>
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
             {t.skills.desc}

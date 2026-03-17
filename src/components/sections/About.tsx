@@ -134,7 +134,8 @@ export default function AboutSection() {
             ● {t.about.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            {t.about.heading} <span className="gradient-text">{t.about.heading_accent}</span>
+            {t.about.heading}{" "}
+            <span className="gradient-text">{t.about.heading_accent}</span>
           </h2>
         </motion.div>
 
@@ -206,9 +207,24 @@ export default function AboutSection() {
                   {/* Stats */}
                   <div className="flex flex-wrap gap-6 justify-center md:justify-start mb-6">
                     {[
-                      { target: 50, suffix: "+", label: t.about.stat_projects, color: "#22d3ee" },
-                      { target: 3, suffix: "+", label: t.about.stat_years, color: "#6366f1" },
-                      { target: 100, suffix: "%", label: t.about.stat_dedication, color: "#a855f7" },
+                      {
+                        target: 50,
+                        suffix: "+",
+                        label: t.about.stat_projects,
+                        color: "#22d3ee",
+                      },
+                      {
+                        target: 3,
+                        suffix: "+",
+                        label: t.about.stat_years,
+                        color: "#6366f1",
+                      },
+                      {
+                        target: 100,
+                        suffix: "%",
+                        label: t.about.stat_dedication,
+                        color: "#a855f7",
+                      },
                     ].map((stat) => (
                       <StatCounter
                         key={stat.label}

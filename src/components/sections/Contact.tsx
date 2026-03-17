@@ -135,11 +135,10 @@ function ContactForm() {
 
         <div className="relative z-10">
           <h3 className="text-xl font-bold text-white mb-1">
-            {t.contact.form_title} <span className="gradient-text">Mensagem</span>
+            {t.contact.form_title}{" "}
+            <span className="gradient-text">Mensagem</span>
           </h3>
-          <p className="text-sm text-slate-400 mb-8">
-            {t.contact.form_reply}
-          </p>
+          <p className="text-sm text-slate-400 mb-8">{t.contact.form_reply}</p>
 
           <AnimatePresence mode="wait">
             {/* Success state */}
@@ -340,7 +339,8 @@ export default function ContactSection() {
             ● {t.contact.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            {t.contact.heading} <span className="gradient-text">{t.contact.heading_accent}</span>
+            {t.contact.heading}{" "}
+            <span className="gradient-text">{t.contact.heading_accent}</span>
           </h2>
 
           {/* CTA quote */}
@@ -407,7 +407,9 @@ export default function ContactSection() {
                 <p className="text-sm font-semibold text-white truncate">
                   {contact.handle}
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">{t.contact.contact_descs[i].desc}</p>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {t.contact.contact_descs[i].desc}
+                </p>
               </div>
 
               {/* Arrow icon */}
@@ -445,8 +447,8 @@ export default function ContactSection() {
           className="text-center"
         >
           <p className="text-slate-500 text-sm font-mono">
-            {t.contact.footer_made} <span className="text-pink-400">♥</span> usando{" "}
-            <span className="text-cyan-400">Next.js</span>
+            {t.contact.footer_made} <span className="text-pink-400">♥</span>{" "}
+            usando <span className="text-cyan-400">Next.js</span>
             {" · "}
             <span className="text-indigo-400">React</span>
             {" · "}
@@ -455,7 +457,8 @@ export default function ContactSection() {
             <span className="text-pink-400">Framer Motion</span>
           </p>
           <p className="text-slate-600 text-xs mt-2">
-            © {new Date().getFullYear()} Dev Portfolio. {t.contact.footer_rights}
+            © {new Date().getFullYear()} Dev Portfolio.{" "}
+            {t.contact.footer_rights}
           </p>
         </motion.div>
       </div>

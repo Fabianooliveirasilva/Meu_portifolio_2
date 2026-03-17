@@ -139,10 +139,22 @@ export const translations: Record<Lang, Translations> = {
       stat_years: "Anos de exp.",
       stat_dedication: "Dedicação",
       focus: [
-        { label: "QA Automation", desc: "Cypress, Playwright, testes E2E, CI/CD" },
-        { label: "Web Development", desc: "React, Next.js, TypeScript, UI modernas" },
-        { label: "Scalable Systems", desc: "Node.js, Docker, microserviços, APIs REST" },
-        { label: "Performance", desc: "Otimização, métricas, Web Vitals, profiling" },
+        {
+          label: "QA Automation",
+          desc: "Cypress, Playwright, testes E2E, CI/CD",
+        },
+        {
+          label: "Web Development",
+          desc: "React, Next.js, TypeScript, UI modernas",
+        },
+        {
+          label: "Scalable Systems",
+          desc: "Node.js, Docker, microserviços, APIs REST",
+        },
+        {
+          label: "Performance",
+          desc: "Otimização, métricas, Web Vitals, profiling",
+        },
       ],
     },
     skills: {
@@ -153,7 +165,10 @@ export const translations: Record<Lang, Translations> = {
       proficiency: "Proficiência Técnica",
       tools_title: "Ferramentas & Tecnologias Adicionais",
       categories: [
-        { label: "Frontend", skills: "React · Next.js · TypeScript · Tailwind" },
+        {
+          label: "Frontend",
+          skills: "React · Next.js · TypeScript · Tailwind",
+        },
         { label: "Backend", skills: "Node.js · Python · REST · SQL" },
         { label: "QA & Tests", skills: "Cypress · Playwright · Jest · CI/CD" },
         { label: "DevOps", skills: "Docker · GitHub Actions · Vercel · AWS" },
@@ -260,10 +275,22 @@ export const translations: Record<Lang, Translations> = {
       stat_years: "Years of exp.",
       stat_dedication: "Dedication",
       focus: [
-        { label: "QA Automation", desc: "Cypress, Playwright, E2E tests, CI/CD" },
-        { label: "Web Development", desc: "React, Next.js, TypeScript, modern UIs" },
-        { label: "Scalable Systems", desc: "Node.js, Docker, microservices, REST APIs" },
-        { label: "Performance", desc: "Optimization, metrics, Web Vitals, profiling" },
+        {
+          label: "QA Automation",
+          desc: "Cypress, Playwright, E2E tests, CI/CD",
+        },
+        {
+          label: "Web Development",
+          desc: "React, Next.js, TypeScript, modern UIs",
+        },
+        {
+          label: "Scalable Systems",
+          desc: "Node.js, Docker, microservices, REST APIs",
+        },
+        {
+          label: "Performance",
+          desc: "Optimization, metrics, Web Vitals, profiling",
+        },
       ],
     },
     skills: {
@@ -274,7 +301,10 @@ export const translations: Record<Lang, Translations> = {
       proficiency: "Technical Proficiency",
       tools_title: "Additional Tools & Technologies",
       categories: [
-        { label: "Frontend", skills: "React · Next.js · TypeScript · Tailwind" },
+        {
+          label: "Frontend",
+          skills: "React · Next.js · TypeScript · Tailwind",
+        },
         { label: "Backend", skills: "Node.js · Python · REST · SQL" },
         { label: "QA & Tests", skills: "Cypress · Playwright · Jest · CI/CD" },
         { label: "DevOps", skills: "Docker · GitHub Actions · Vercel · AWS" },
@@ -381,10 +411,22 @@ export const translations: Record<Lang, Translations> = {
       stat_years: "Años de exp.",
       stat_dedication: "Dedicación",
       focus: [
-        { label: "QA Automation", desc: "Cypress, Playwright, pruebas E2E, CI/CD" },
-        { label: "Web Development", desc: "React, Next.js, TypeScript, UIs modernas" },
-        { label: "Scalable Systems", desc: "Node.js, Docker, microservicios, APIs REST" },
-        { label: "Performance", desc: "Optimización, métricas, Web Vitals, profiling" },
+        {
+          label: "QA Automation",
+          desc: "Cypress, Playwright, pruebas E2E, CI/CD",
+        },
+        {
+          label: "Web Development",
+          desc: "React, Next.js, TypeScript, UIs modernas",
+        },
+        {
+          label: "Scalable Systems",
+          desc: "Node.js, Docker, microservicios, APIs REST",
+        },
+        {
+          label: "Performance",
+          desc: "Optimización, métricas, Web Vitals, profiling",
+        },
       ],
     },
     skills: {
@@ -395,7 +437,10 @@ export const translations: Record<Lang, Translations> = {
       proficiency: "Proficiencia Técnica",
       tools_title: "Herramientas y Tecnologías Adicionales",
       categories: [
-        { label: "Frontend", skills: "React · Next.js · TypeScript · Tailwind" },
+        {
+          label: "Frontend",
+          skills: "React · Next.js · TypeScript · Tailwind",
+        },
         { label: "Backend", skills: "Node.js · Python · REST · SQL" },
         { label: "QA & Tests", skills: "Cypress · Playwright · Jest · CI/CD" },
         { label: "DevOps", skills: "Docker · GitHub Actions · Vercel · AWS" },

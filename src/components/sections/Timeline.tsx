@@ -5,17 +5,41 @@ import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const EVENTS_META = [
-  { year: "2022", tags: ["QA Manual", "TestRail", "Jira", "Scrum"], color: "#22d3ee", side: "right" },
-  { year: "2023", tags: ["Cypress", "Playwright", "GitHub Actions", "Docker"], color: "#6366f1", side: "left" },
-  { year: "2024", tags: ["React", "Next.js", "TypeScript", "REST APIs"], color: "#a855f7", side: "right" },
-  { year: "2025", tags: ["Node.js", "Next.js", "Docker", "AWS", "QA"], color: "#f472b6", side: "left" },
+  {
+    year: "2022",
+    tags: ["QA Manual", "TestRail", "Jira", "Scrum"],
+    color: "#22d3ee",
+    side: "right",
+  },
+  {
+    year: "2023",
+    tags: ["Cypress", "Playwright", "GitHub Actions", "Docker"],
+    color: "#6366f1",
+    side: "left",
+  },
+  {
+    year: "2024",
+    tags: ["React", "Next.js", "TypeScript", "REST APIs"],
+    color: "#a855f7",
+    side: "right",
+  },
+  {
+    year: "2025",
+    tags: ["Node.js", "Next.js", "Docker", "AWS", "QA"],
+    color: "#f472b6",
+    side: "left",
+  },
 ] as const;
 
 function TimelineNode({
   event,
   index,
 }: {
-  event: (typeof EVENTS_META)[number] & { role: string; company: string; desc: string };
+  event: (typeof EVENTS_META)[number] & {
+    role: string;
+    company: string;
+    desc: string;
+  };
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -168,7 +192,8 @@ export default function TimelineSection() {
             ● {t.timeline.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            {t.timeline.heading} <span className="gradient-text">{t.timeline.heading_accent}</span>
+            {t.timeline.heading}{" "}
+            <span className="gradient-text">{t.timeline.heading_accent}</span>
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
             {t.timeline.desc}

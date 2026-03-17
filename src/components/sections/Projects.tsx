@@ -26,7 +26,14 @@ const PROJECTS: Project[] = [
       "App web estilo Jira/ClickUp com controle de times, projetos e tarefas.",
     longDesc:
       "Centraliza times, projetos e tarefas em único painel. Usa React + TypeScript + Vite, TanStack Query para cache/optimistic updates, Zustand, React Hook Form + Zod e Supabase para auth, DB e RLS.",
-    tags: ["React", "TypeScript", "Supabase", "TanStack Query", "Zod", "Tailwind"],
+    tags: [
+      "React",
+      "TypeScript",
+      "Supabase",
+      "TanStack Query",
+      "Zod",
+      "Tailwind",
+    ],
     color: "#6366f1",
     emoji: "🗂️",
     repo: "https://github.com/Fabianooliveirasilva/Plataforma-SaaS-de-Gest-o-de-Tarefas-com-Times",
@@ -39,7 +46,13 @@ const PROJECTS: Project[] = [
       "Portfolio interativo com elementos 3D, animações fluidas e design neon.",
     longDesc:
       "Este mesmo portfolio! Construído com Next.js 16, React Three Fiber, Framer Motion 12 e TailwindCSS v4. Conta com cena 3D holográfica, cursor customizado, tema claro/escuro e formulário de contato funcional.",
-    tags: ["Next.js", "Three.js", "Framer Motion", "TypeScript", "TailwindCSS v4"],
+    tags: [
+      "Next.js",
+      "Three.js",
+      "Framer Motion",
+      "TypeScript",
+      "TailwindCSS v4",
+    ],
     color: "#a855f7",
     emoji: "✨",
     repo: "https://github.com/Fabianooliveirasilva/Meu_portifolio_2",
@@ -61,8 +74,7 @@ const PROJECTS: Project[] = [
   {
     id: 4,
     title: "Portfolio TypeScript",
-    description:
-      "Primeiro portfolio profissional desenvolvido em TypeScript.",
+    description: "Primeiro portfolio profissional desenvolvido em TypeScript.",
     longDesc:
       "Portfolio anterior desenvolvido com TypeScript, apresentando projetos, habilidades e informações de contato com design responsivo e moderno.",
     tags: ["TypeScript", "React", "CSS"],
@@ -340,7 +352,8 @@ export default function ProjectsSection() {
             ● {t.projects.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            {t.projects.heading} <span className="gradient-text">{t.projects.heading_accent}</span>
+            {t.projects.heading}{" "}
+            <span className="gradient-text">{t.projects.heading_accent}</span>
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
             {t.projects.desc}
