@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Particle {
   x: number;
@@ -16,8 +16,25 @@ const COLORS = ["#6366f1", "#22d3ee", "#a855f7", "#f472b6"];
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isLightMode, setIsLightMode] = useState(false);
 
   useEffect(() => {
+    const root = document.documentElement;
+    const syncTheme = () => setIsLightMode(root.classList.contains("light"));
+
+    syncTheme();
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isLightMode) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -124,7 +141,9 @@ export default function ParticleBackground() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animId);
     };
-  }, []);
+  }, [isLightMode]);
+
+  if (isLightMode) return null;
 
   return (
     <canvas

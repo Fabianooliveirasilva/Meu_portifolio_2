@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Sphere, MeshDistortMaterial, Stars, Float } from "@react-three/drei";
 import * as THREE from "three";
@@ -73,18 +73,23 @@ function OrbitRing({
 function FloatingParticles() {
   const pointsRef = useRef<THREE.Points>(null);
 
-  const positions = useMemo(() => {
+  const pseudoRandom = (seed: number) => {
+    const x = Math.sin(seed * 12.9898) * 43758.5453;
+    return x - Math.floor(x);
+  };
+
+  const positions = (() => {
     const arr = new Float32Array(600);
     for (let i = 0; i < 200; i++) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = 2.2 + Math.random() * 1.5;
+      const theta = pseudoRandom(i + 1) * Math.PI * 2;
+      const phi = Math.acos(2 * pseudoRandom(i + 101) - 1);
+      const r = 2.2 + pseudoRandom(i + 1001) * 1.5;
       arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       arr[i * 3 + 2] = r * Math.cos(phi);
     }
     return arr;
-  }, []);
+  })();
 
   useFrame(({ clock }) => {
     if (pointsRef.current) {
@@ -110,6 +115,22 @@ function FloatingParticles() {
 
 /* ── Main 3D Scene ─────────────────────────────────── */
 export default function HeroScene() {
+  const [isLightMode, setIsLightMode] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const syncTheme = () => setIsLightMode(root.classList.contains("light"));
+
+    syncTheme();
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <Canvas
       camera={{ position: [0, 0, 5.5], fov: 55 }}
@@ -124,15 +145,17 @@ export default function HeroScene() {
       <pointLight position={[0, 5, -5]} color="#a855f7" intensity={1.5} />
 
       {/* Star field */}
-      <Stars
-        radius={80}
-        depth={60}
-        count={3000}
-        factor={4}
-        saturation={0.3}
-        fade
-        speed={0.5}
-      />
+      {!isLightMode && (
+        <Stars
+          radius={80}
+          depth={60}
+          count={3000}
+          factor={4}
+          saturation={0.3}
+          fade
+          speed={0.5}
+        />
+      )}
 
       {/* Main holographic sphere */}
       <HolographicSphere />
@@ -143,7 +166,7 @@ export default function HeroScene() {
       <OrbitRing radius={3.1} color="#f472b6" speed={0.2} tilt={Math.PI / 3} />
 
       {/* Floating particle cloud */}
-      <FloatingParticles />
+      {!isLightMode && <FloatingParticles />}
     </Canvas>
   );
 }
