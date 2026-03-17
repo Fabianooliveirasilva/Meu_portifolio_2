@@ -6,6 +6,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import ParticleBackground from "@/components/ParticleBackground";
 import HeroSection from "@/components/sections/Hero";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 // Lazy-load below-fold sections for better performance
 const AboutSection = dynamic(() => import("@/components/sections/About"));
@@ -16,7 +17,7 @@ const ContactSection = dynamic(() => import("@/components/sections/Contact"));
 
 export default function Home() {
   return (
-    <>
+    <LanguageProvider>
       {/* Loading splash screen (auto-dismisses) */}
       <LoadingScreen />
 
@@ -37,6 +38,6 @@ export default function Home() {
         <TimelineSection />
         <ContactSection />
       </main>
-    </>
+    </LanguageProvider>
   );
 }

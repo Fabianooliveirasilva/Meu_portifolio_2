@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SKILLS = [
   { name: "JavaScript", level: 92, color: "#f7df1e", icon: "JS" },
@@ -99,6 +100,7 @@ function SkillBar({
 }
 
 export default function SkillsSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="skills"
@@ -124,14 +126,13 @@ export default function SkillsSection() {
           className="text-center mb-16"
         >
           <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
-            ● Tecnologias
+            ● {t.skills.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            Minhas <span className="gradient-text">Skills</span>
+            {t.skills.heading} <span className="gradient-text">{t.skills.heading_accent}</span>
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
-            Combinação de habilidades técnicas e ferramentas para construir
-            produtos excepcionais
+            {t.skills.desc}
           </p>
         </motion.div>
 
@@ -140,7 +141,7 @@ export default function SkillsSection() {
           <div className="glass rounded-3xl p-8 border border-white/8">
             <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              Proficiência Técnica
+              {t.skills.proficiency}
             </h3>
             <div className="flex flex-col gap-5">
               {SKILLS.map((skill, i) => (
@@ -153,53 +154,32 @@ export default function SkillsSection() {
           <div className="flex flex-col gap-8">
             {/* Summary cards */}
             <div className="grid grid-cols-2 gap-4">
-              {[
-                {
-                  label: "Frontend",
-                  skills: "React · Next.js · TypeScript · Tailwind",
-                  color: "#6366f1",
-                  emoji: "🎨",
-                },
-                {
-                  label: "Backend",
-                  skills: "Node.js · Python · REST · SQL",
-                  color: "#22d3ee",
-                  emoji: "⚙️",
-                },
-                {
-                  label: "QA & Tests",
-                  skills: "Cypress · Playwright · Jest · CI/CD",
-                  color: "#a855f7",
-                  emoji: "🧪",
-                },
-                {
-                  label: "DevOps",
-                  skills: "Docker · GitHub Actions · Vercel · AWS",
-                  color: "#f472b6",
-                  emoji: "🚀",
-                },
-              ].map((card, i) => (
-                <motion.div
-                  key={card.label}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12, duration: 0.5 }}
-                  whileHover={{ y: -6, scale: 1.03 }}
-                  className="glass rounded-2xl p-5 border border-white/8 card-hover-glow cursor-default"
-                >
-                  <div className="text-3xl mb-3">{card.emoji}</div>
-                  <h4
-                    className="text-sm font-bold mb-2"
-                    style={{ color: card.color }}
+              {t.skills.categories.map((card, i) => {
+                const emojis = ["🎨", "⚙️", "🧪", "🚀"];
+                const colors = ["#6366f1", "#22d3ee", "#a855f7", "#f472b6"];
+                return (
+                  <motion.div
+                    key={card.label}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.12, duration: 0.5 }}
+                    whileHover={{ y: -6, scale: 1.03 }}
+                    className="glass rounded-2xl p-5 border border-white/8 card-hover-glow cursor-default"
                   >
-                    {card.label}
-                  </h4>
-                  <p className="text-xs text-slate-400 font-mono leading-relaxed">
-                    {card.skills}
-                  </p>
-                </motion.div>
-              ))}
+                    <div className="text-3xl mb-3">{emojis[i]}</div>
+                    <h4
+                      className="text-sm font-bold mb-2"
+                      style={{ color: colors[i] }}
+                    >
+                      {card.label}
+                    </h4>
+                    <p className="text-xs text-slate-400 font-mono leading-relaxed">
+                      {card.skills}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Tools tags */}
@@ -212,7 +192,7 @@ export default function SkillsSection() {
             >
               <h3 className="text-sm font-bold text-slate-300 mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                Ferramentas &amp; Tecnologias Adicionais
+                {t.skills.tools_title}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {TOOLS.map((tool, i) => (

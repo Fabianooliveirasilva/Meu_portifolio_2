@@ -28,6 +28,7 @@ function WhatsAppIcon({ size = 22 }: { size?: number }) {
 }
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // ─── EmailJS config ───────────────────────────────────────────────────────────
 // 1. Acesse https://www.emailjs.com e crie uma conta gratuita
@@ -87,6 +88,7 @@ function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,10 +135,10 @@ function ContactForm() {
 
         <div className="relative z-10">
           <h3 className="text-xl font-bold text-white mb-1">
-            Envie uma <span className="gradient-text">Mensagem</span>
+            {t.contact.form_title} <span className="gradient-text">Mensagem</span>
           </h3>
           <p className="text-sm text-slate-400 mb-8">
-            Responderei em até 24 horas.
+            {t.contact.form_reply}
           </p>
 
           <AnimatePresence mode="wait">
@@ -158,10 +160,10 @@ function ContactForm() {
                   <CheckCircle size={32} className="text-emerald-400" />
                 </motion.div>
                 <p className="text-lg font-bold text-white">
-                  Mensagem enviada!
+                  {t.contact.success_title}
                 </p>
                 <p className="text-sm text-slate-400">
-                  Obrigado pelo contato. Responderei em breve.
+                  {t.contact.success_msg}
                 </p>
               </motion.div>
             )}
@@ -185,14 +187,14 @@ function ContactForm() {
                     htmlFor="from_name"
                     className="text-xs font-semibold text-slate-300 uppercase tracking-wider"
                   >
-                    Nome
+                    {t.contact.form_name}
                   </label>
                   <input
                     id="from_name"
                     name="from_name"
                     type="text"
                     required
-                    placeholder="Seu nome"
+                    placeholder={t.contact.form_name_ph}
                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 transition-all"
                   />
                 </div>
@@ -203,14 +205,14 @@ function ContactForm() {
                     htmlFor="from_email"
                     className="text-xs font-semibold text-slate-300 uppercase tracking-wider"
                   >
-                    Email
+                    {t.contact.form_email}
                   </label>
                   <input
                     id="from_email"
                     name="from_email"
                     type="email"
                     required
-                    placeholder="seu@email.com"
+                    placeholder={t.contact.form_email_ph}
                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 transition-all"
                   />
                 </div>
@@ -221,14 +223,14 @@ function ContactForm() {
                     htmlFor="subject"
                     className="text-xs font-semibold text-slate-300 uppercase tracking-wider"
                   >
-                    Assunto
+                    {t.contact.form_subject}
                   </label>
                   <input
                     id="subject"
                     name="subject"
                     type="text"
                     required
-                    placeholder="Do que se trata?"
+                    placeholder={t.contact.form_subject_ph}
                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 transition-all"
                   />
                 </div>
@@ -239,14 +241,14 @@ function ContactForm() {
                     htmlFor="message"
                     className="text-xs font-semibold text-slate-300 uppercase tracking-wider"
                   >
-                    Mensagem
+                    {t.contact.form_message}
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     required
                     rows={5}
-                    placeholder="Conte sobre o seu projeto ou oportunidade..."
+                    placeholder={t.contact.form_message_ph}
                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 transition-all resize-none"
                   />
                 </div>
@@ -284,12 +286,12 @@ function ContactForm() {
                     {status === "loading" ? (
                       <>
                         <Loader2 size={17} className="animate-spin" />
-                        Enviando...
+                        {t.contact.form_sending}
                       </>
                     ) : (
                       <>
                         <Send size={17} />
-                        Enviar Mensagem
+                        {t.contact.form_send}
                       </>
                     )}
                   </button>
@@ -304,6 +306,7 @@ function ContactForm() {
 }
 
 export default function ContactSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="contact"
@@ -334,10 +337,10 @@ export default function ContactSection() {
           className="text-center mb-16"
         >
           <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
-            ● Vamos conversar
+            ● {t.contact.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            Entre em <span className="gradient-text">Contato</span>
+            {t.contact.heading} <span className="gradient-text">{t.contact.heading_accent}</span>
           </h2>
 
           {/* CTA quote */}
@@ -348,12 +351,11 @@ export default function ContactSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-xl md:text-2xl font-bold gradient-text-pink max-w-2xl mx-auto"
           >
-            "Vamos construir algo incrível juntos."
+            &ldquo;{t.contact.quote}&rdquo;
           </motion.p>
 
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
-            Estou disponível para projetos freelance, posições full-time e
-            colaborações. Escolha o canal que preferir!
+            {t.contact.desc}
           </p>
         </motion.div>
 
@@ -405,7 +407,7 @@ export default function ContactSection() {
                 <p className="text-sm font-semibold text-white truncate">
                   {contact.handle}
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">{contact.desc}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{t.contact.contact_descs[i].desc}</p>
               </div>
 
               {/* Arrow icon */}
@@ -443,7 +445,7 @@ export default function ContactSection() {
           className="text-center"
         >
           <p className="text-slate-500 text-sm font-mono">
-            Feito com <span className="text-pink-400">♥</span> usando{" "}
+            {t.contact.footer_made} <span className="text-pink-400">♥</span> usando{" "}
             <span className="text-cyan-400">Next.js</span>
             {" · "}
             <span className="text-indigo-400">React</span>
@@ -453,8 +455,7 @@ export default function ContactSection() {
             <span className="text-pink-400">Framer Motion</span>
           </p>
           <p className="text-slate-600 text-xs mt-2">
-            © {new Date().getFullYear()} Dev Portfolio. Todos os direitos
-            reservados.
+            © {new Date().getFullYear()} Dev Portfolio. {t.contact.footer_rights}
           </p>
         </motion.div>
       </div>

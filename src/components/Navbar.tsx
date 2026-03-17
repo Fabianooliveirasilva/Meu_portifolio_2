@@ -3,20 +3,51 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useLanguage, Lang } from "@/contexts/LanguageContext";
 
-const NAV_LINKS = [
-  { label: "Início", href: "#hero" },
-  { label: "Sobre", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projetos", href: "#projects" },
-  { label: "Carreira", href: "#timeline" },
-  { label: "Contato", href: "#contact" },
+const FLAGS: { lang: Lang; flag: string; label: string }[] = [
+  { lang: "pt", flag: "🇧🇷", label: "Português" },
+  { lang: "en", flag: "🇺🇸", label: "English" },
+  { lang: "es", flag: "🇪🇸", label: "Español" },
 ];
+
+function LangSwitcher() {
+  const { lang, setLang } = useLanguage();
+  return (
+    <div className="flex items-center gap-1">
+      {FLAGS.map((f) => (
+        <button
+          key={f.lang}
+          onClick={() => setLang(f.lang)}
+          aria-label={f.label}
+          title={f.label}
+          className={`text-lg leading-none rounded-md px-1 py-0.5 transition-all duration-200 ${
+            lang === f.lang
+              ? "ring-2 ring-cyan-400 scale-110"
+              : "opacity-50 hover:opacity-100 hover:scale-105"
+          }`}
+        >
+          {f.flag}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("#hero");
+  const { t } = useLanguage();
+
+  const NAV_LINKS = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.skills, href: "#skills" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.timeline, href: "#timeline" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -94,39 +125,51 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* CTA button */}
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full glass border border-indigo-500/40 text-sm font-semibold text-indigo-300 hover:text-white hover:border-indigo-400 hover:glow-indigo transition-all duration-300"
-            onClick={() => handleNavClick("#contact")}
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Disponível
-          </a>
+          {/* Right side controls */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Language switcher */}
+            <LangSwitcher />
 
-          {/* Theme toggle */}
-          <ThemeToggle />
+            {/* CTA button */}
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass border border-indigo-500/40 text-sm font-semibold text-indigo-300 hover:text-white hover:border-indigo-400 hover:glow-indigo transition-all duration-300"
+              onClick={() => handleNavClick("#contact")}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              {t.nav.available}
+            </a>
 
-          {/* Mobile hamburger */}
-          <button
-            aria-label="Abrir menu de navegação"
-            aria-expanded={menuOpen}
-            className="md:hidden flex flex-col gap-1.5 p-2"
-            onClick={() => setMenuOpen((v) => !v)}
-          >
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className="block w-6 h-0.5 bg-cyan-400 rounded-full origin-center"
-            />
-            <motion.span
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="block w-6 h-0.5 bg-cyan-400 rounded-full"
-            />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-              className="block w-6 h-0.5 bg-cyan-400 rounded-full origin-center"
-            />
-          </button>
+            {/* Theme toggle */}
+            <ThemeToggle />
+          </div>
+
+          {/* Mobile: lang + theme + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <LangSwitcher />
+            <ThemeToggle />
+            <button
+              aria-label="Abrir menu de navegação"
+              aria-expanded={menuOpen}
+              className="flex flex-col gap-1.5 p-2"
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <motion.span
+                animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                className="block w-6 h-0.5 bg-cyan-400 rounded-full origin-center"
+              />
+              <motion.span
+                animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="block w-6 h-0.5 bg-cyan-400 rounded-full"
+              />
+              <motion.span
+                animate={
+                  menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }
+                }
+                className="block w-6 h-0.5 bg-cyan-400 rounded-full origin-center"
+              />
+            </button>
+          </div>
         </nav>
       </motion.header>
 

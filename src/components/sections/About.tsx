@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useTransform, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Code2, TestTube, Server, Cpu } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 /* ── Animated counter hook ───────────────────────── */
 function useCounter(target: number, duration = 1800) {
@@ -56,31 +57,11 @@ function StatCounter({
   );
 }
 
-const FOCUS_AREAS = [
-  {
-    icon: <TestTube size={22} />,
-    label: "QA Automation",
-    desc: "Cypress, Playwright, testes E2E, CI/CD",
-    color: "#22d3ee",
-  },
-  {
-    icon: <Code2 size={22} />,
-    label: "Web Development",
-    desc: "React, Next.js, TypeScript, UI modernas",
-    color: "#6366f1",
-  },
-  {
-    icon: <Server size={22} />,
-    label: "Scalable Systems",
-    desc: "Node.js, Docker, microserviços, APIs REST",
-    color: "#a855f7",
-  },
-  {
-    icon: <Cpu size={22} />,
-    label: "Performance",
-    desc: "Otimização, métricas, Web Vitals, profiling",
-    color: "#f472b6",
-  },
+const FOCUS_ICONS = [
+  { icon: <TestTube size={22} />, color: "#22d3ee" },
+  { icon: <Code2 size={22} />, color: "#6366f1" },
+  { icon: <Server size={22} />, color: "#a855f7" },
+  { icon: <Cpu size={22} />, color: "#f472b6" },
 ];
 
 /* 3D tilt card effect on mouse move */
@@ -124,6 +105,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 }
 
 export default function AboutSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="about"
@@ -149,10 +131,10 @@ export default function AboutSection() {
           className="text-center mb-16"
         >
           <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
-            ● Quem sou
+            ● {t.about.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            Sobre <span className="gradient-text">Mim</span>
+            {t.about.heading} <span className="gradient-text">{t.about.heading_accent}</span>
           </h2>
         </motion.div>
 
@@ -207,48 +189,34 @@ export default function AboutSection() {
 
                   {/* Status */}
                   <span className="text-xs font-mono text-emerald-400 glass px-3 py-1 rounded-full border border-emerald-500/30">
-                    ● Open to work
+                    ● {t.about.open_to_work}
                   </span>
                 </motion.div>
 
                 {/* Bio */}
                 <div className="text-center md:text-left">
                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                    Developer{" "}
-                    <span className="gradient-text">&amp; QA Engineer</span>
+                    {t.about.role}{" "}
+                    <span className="gradient-text">{t.about.role_accent}</span>
                   </h3>
                   <p className="text-slate-400 leading-relaxed mb-6 max-w-xl">
-                    Desenvolvedor apaixonado por criar soluções digitais
-                    completas — da interface ao backend, entregando qualidade
-                    por meio de automação de testes e boas práticas de
-                    engenharia. Comprometido com código limpo, performance e
-                    experiências de usuário memoráveis.
+                    {t.about.bio}
                   </p>
 
                   {/* Stats */}
                   <div className="flex flex-wrap gap-6 justify-center md:justify-start mb-6">
                     {[
-                      { value: "50+", label: "Projetos", color: "#22d3ee" },
-                      { value: "3+", label: "Anos de exp.", color: "#6366f1" },
-                      { value: "100%", label: "Dedicação", color: "#a855f7" },
+                      { target: 50, suffix: "+", label: t.about.stat_projects, color: "#22d3ee" },
+                      { target: 3, suffix: "+", label: t.about.stat_years, color: "#6366f1" },
+                      { target: 100, suffix: "%", label: t.about.stat_dedication, color: "#a855f7" },
                     ].map((stat) => (
-                      <div
+                      <StatCounter
                         key={stat.label}
-                        className="text-center md:text-left"
-                      >
-                        <p
-                          className="text-3xl font-black"
-                          style={{
-                            color: stat.color,
-                            textShadow: `0 0 20px ${stat.color}80`,
-                          }}
-                        >
-                          {stat.value}
-                        </p>
-                        <p className="text-xs text-slate-400 font-mono">
-                          {stat.label}
-                        </p>
-                      </div>
+                        target={stat.target}
+                        suffix={stat.suffix}
+                        label={stat.label}
+                        color={stat.color}
+                      />
                     ))}
                   </div>
                 </div>
@@ -256,9 +224,9 @@ export default function AboutSection() {
 
               {/* Focus areas grid */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 relative z-10">
-                {FOCUS_AREAS.map((area, i) => (
+                {FOCUS_ICONS.map((area, i) => (
                   <motion.div
-                    key={area.label}
+                    key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -277,10 +245,10 @@ export default function AboutSection() {
                       {area.icon}
                     </div>
                     <p className="text-sm font-semibold text-white mb-1">
-                      {area.label}
+                      {t.about.focus[i].label}
                     </p>
                     <p className="text-xs text-slate-400 leading-relaxed">
-                      {area.desc}
+                      {t.about.focus[i].desc}
                     </p>
                   </motion.div>
                 ))}

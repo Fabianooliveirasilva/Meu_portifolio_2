@@ -2,51 +2,20 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const EVENTS = [
-  {
-    year: "2022",
-    role: "QA Engineer",
-    company: "Tech Startup",
-    desc: "Início da carreira profissional em qualidade de software. Testes manuais, criação de casos de teste e introdução às práticas de QA.",
-    tags: ["QA Manual", "TestRail", "Jira", "Scrum"],
-    color: "#22d3ee",
-    side: "right",
-  },
-  {
-    year: "2023",
-    role: "Automation QA Engineer",
-    company: "Software House",
-    desc: "Atuação como QA Automation, desenvolvendo frameworks de testes E2E, integração com CI/CD e reduzindo o tempo de ciclo de releases em 40%.",
-    tags: ["Cypress", "Playwright", "GitHub Actions", "Docker"],
-    color: "#6366f1",
-    side: "left",
-  },
-  {
-    year: "2024",
-    role: "Web Developer",
-    company: "Digital Agency",
-    desc: "Transição para desenvolvimento web full stack, criando aplicações React/Next.js de alta performance e contribuindo em projetos de múltiplos clientes.",
-    tags: ["React", "Next.js", "TypeScript", "REST APIs"],
-    color: "#a855f7",
-    side: "right",
-  },
-  {
-    year: "2025",
-    role: "Full Stack Developer",
-    company: "Freelancer & Projetos Próprios",
-    desc: "Atuação como desenvolvedor full stack sênior, liderando entregas técnicas, arquitetura de sistemas e construção de produtos digitais completos.",
-    tags: ["Node.js", "Next.js", "Docker", "AWS", "QA"],
-    color: "#f472b6",
-    side: "left",
-  },
-];
+const EVENTS_META = [
+  { year: "2022", tags: ["QA Manual", "TestRail", "Jira", "Scrum"], color: "#22d3ee", side: "right" },
+  { year: "2023", tags: ["Cypress", "Playwright", "GitHub Actions", "Docker"], color: "#6366f1", side: "left" },
+  { year: "2024", tags: ["React", "Next.js", "TypeScript", "REST APIs"], color: "#a855f7", side: "right" },
+  { year: "2025", tags: ["Node.js", "Next.js", "Docker", "AWS", "QA"], color: "#f472b6", side: "left" },
+] as const;
 
 function TimelineNode({
   event,
   index,
 }: {
-  event: (typeof EVENTS)[0];
+  event: (typeof EVENTS_META)[number] & { role: string; company: string; desc: string };
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -171,6 +140,14 @@ function TimelineNode({
 export default function TimelineSection() {
   const lineRef = useRef<HTMLDivElement>(null);
   const isVisible = useInView(lineRef, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const EVENTS = EVENTS_META.map((meta, i) => ({
+    ...meta,
+    role: t.timeline.events[i].role,
+    company: t.timeline.events[i].company,
+    desc: t.timeline.events[i].desc,
+  }));
 
   return (
     <section
@@ -188,13 +165,13 @@ export default function TimelineSection() {
           className="text-center mb-20"
         >
           <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
-            ● Trajetória
+            ● {t.timeline.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            Minha <span className="gradient-text">Carreira</span>
+            {t.timeline.heading} <span className="gradient-text">{t.timeline.heading_accent}</span>
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
-            Uma jornada contínua de aprendizado, evolução e entrega de valor
+            {t.timeline.desc}
           </p>
         </motion.div>
 

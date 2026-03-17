@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Project {
   id: number;
@@ -178,6 +179,7 @@ const PROJECTS: Project[] = [
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <motion.article
@@ -228,7 +230,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               border: `1px solid ${project.color}50`,
             }}
           >
-            ★ Destaque
+            {t.projects.featured}
           </span>
         )}
 
@@ -288,7 +290,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               }}
             >
               <ExternalLink size={13} />
-              Demo
+              {t.projects.demo}
             </a>
           )}
           {project.repo && (
@@ -311,6 +313,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function ProjectsSection() {
   const [page, setPage] = useState(0);
+  const { t } = useLanguage();
   const COLS = 3;
   const totalPages = Math.ceil(PROJECTS.length / COLS);
   const currentProjects = PROJECTS.slice(page * COLS, page * COLS + COLS);
@@ -334,14 +337,13 @@ export default function ProjectsSection() {
           className="text-center mb-16"
         >
           <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
-            ● Portfólio
+            ● {t.projects.subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
-            Meus <span className="gradient-text">Projetos</span>
+            {t.projects.heading} <span className="gradient-text">{t.projects.heading_accent}</span>
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
-            Soluções reais construídas com tecnologias modernas e foco em
-            qualidade
+            {t.projects.desc}
           </p>
         </motion.div>
 
@@ -366,7 +368,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
-            aria-label="Página anterior"
+            aria-label={t.projects.prev}
             className="p-2 rounded-xl glass border border-white/10 text-slate-300 hover:text-white hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
           >
             <ChevronLeft size={20} />
@@ -391,7 +393,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page === totalPages - 1}
-            aria-label="Próxima página"
+            aria-label={t.projects.next}
             className="p-2 rounded-xl glass border border-white/10 text-slate-300 hover:text-white hover:border-indigo-500/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
           >
             <ChevronRight size={20} />

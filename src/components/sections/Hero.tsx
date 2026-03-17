@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Github, Eye, ChevronDown } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Dynamic import to avoid SSR issues with Three.js
 const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
@@ -41,6 +42,7 @@ function AnimatedTitle() {
 }
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="hero"
@@ -76,7 +78,7 @@ export default function HeroSection() {
             >
               <span className="flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-emerald-500/30 text-xs font-semibold text-emerald-400 tracking-wider uppercase">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Disponível para projetos
+                {t.hero.available}
               </span>
             </motion.div>
 
@@ -87,7 +89,7 @@ export default function HeroSection() {
               transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
             >
               <p className="text-slate-400 text-lg mb-2 font-mono">
-                Olá, eu sou
+                {t.hero.hello}
               </p>
               <h1 className="text-5xl md:text-7xl font-black leading-none tracking-tight">
                 <span className="gradient-text">Fabiano</span>
@@ -112,8 +114,7 @@ export default function HeroSection() {
               transition={{ delay: 1.5, duration: 0.6 }}
               className="text-slate-400 text-lg max-w-md mx-auto md:mx-0 leading-relaxed"
             >
-              Criando experiências digitais de alto impacto com código limpo,
-              performance e automação de qualidade.
+              {t.hero.tagline}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -135,7 +136,7 @@ export default function HeroSection() {
                 {/* Shimmer overlay */}
                 <span className="absolute inset-0 animate-shimmer opacity-50 rounded-full" />
                 <Eye size={18} className="relative z-10" />
-                <span className="relative z-10">Ver Projetos</span>
+                <span className="relative z-10">{t.hero.cta_projects}</span>
               </a>
 
               <a
@@ -198,7 +199,7 @@ export default function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500"
       >
         <span className="text-xs font-mono tracking-widest uppercase">
-          Scroll
+          {t.hero.scroll}
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
