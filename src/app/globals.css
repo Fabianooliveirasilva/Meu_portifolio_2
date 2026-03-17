@@ -1,26 +1,379 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
+/* ─── Theme Variables ─────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+
+  /* Neon palette */
+  --neon-indigo: #6366f1;
+  --neon-cyan: #22d3ee;
+  --neon-purple: #a855f7;
+  --neon-pink: #f472b6;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 20px;
+
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* Fonts (Geist via layout.tsx) */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
+/* Tailwind v4 inline theme overrides */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Reset / Global ─────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: none; /* replaced by custom cursor */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-indigo), var(--neon-cyan));
+  border-radius: 99px;
+}
+
+/* ─── Selection ──────────────────────────────────── */
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #fff;
+}
+
+/* ─── Glassmorphism utility ──────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+/* ─── Neon text gradient ─────────────────────────── */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--neon-indigo),
+    var(--neon-cyan),
+    var(--neon-purple)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-text-pink {
+  background: linear-gradient(
+    135deg,
+    var(--neon-purple),
+    var(--neon-pink),
+    var(--neon-cyan)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─── Neon Glow Shadows ──────────────────────────── */
+.glow-indigo {
+  box-shadow:
+    0 0 20px rgba(99, 102, 241, 0.45),
+    0 0 40px rgba(99, 102, 241, 0.18);
+}
+.glow-cyan {
+  box-shadow:
+    0 0 20px rgba(34, 211, 238, 0.45),
+    0 0 40px rgba(34, 211, 238, 0.18);
+}
+.glow-purple {
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.45),
+    0 0 40px rgba(168, 85, 247, 0.18);
+}
+.glow-pink {
+  box-shadow:
+    0 0 20px rgba(244, 114, 182, 0.45),
+    0 0 40px rgba(244, 114, 182, 0.18);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(34, 211, 238, 0.7);
+}
+.text-glow-indigo {
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.7);
+}
+
+/* ─── Animated gradient background ──────────────── */
+.animated-bg {
+  background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0f3460, #0f172a);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ─── Floating animation ─────────────────────────── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ─── Pulse glow ─────────────────────────────────── */
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ─── Shimmer ────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* ─── Spin slow ──────────────────────────────────── */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
+/* ─── Section fade-in via Framer Motion fallback ─── */
+.section-bg {
+  position: relative;
+  overflow: hidden;
+}
+.section-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(99, 102, 241, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ─── Neon border animation ──────────────────────── */
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+  33% {
+    border-color: rgba(34, 211, 238, 0.4);
+  }
+  66% {
+    border-color: rgba(168, 85, 247, 0.4);
+  }
+}
+.border-neon-animate {
+  animation: borderGlow 4s linear infinite;
+}
+
+/* ─── Cursor ─────────────────────────────────────── */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan);
+  transition: transform 0.1s ease;
+}
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(34, 211, 238, 0.55);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transition:
+    transform 0.18s ease,
+    width 0.25s ease,
+    height 0.25s ease,
+    border-color 0.25s ease;
+}
+.cursor-ring.hover {
+  width: 56px;
+  height: 56px;
+  border-color: var(--neon-indigo);
+}
+
+/* ─── Loading screen ─────────────────────────────── */
+.loading-bar {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--neon-indigo),
+    var(--neon-cyan),
+    var(--neon-purple),
+    var(--neon-pink)
+  );
+  background-size: 300% 100%;
+  animation: loadingBar 1.8s linear infinite;
+}
+@keyframes loadingBar {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
+/* ─── Skill bar ──────────────────────────────────── */
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--neon-indigo), var(--neon-cyan));
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Timeline ───────────────────────────────────── */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    var(--neon-indigo),
+    var(--neon-cyan),
+    var(--neon-purple)
+  );
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+}
+
+/* ─── Card hover glow ────────────────────────────── */
+.card-hover-glow {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.card-hover-glow:hover {
+  box-shadow:
+    0 0 30px rgba(99, 102, 241, 0.35),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+  transform: translateY(-6px);
+}
+
+/* ─── Grid background pattern ────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── Light mode overrides ───────────────────────── */
+html.light {
+  --background: #f0f4ff;
+  --foreground: #1e293b;
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(99, 102, 241, 0.15);
+}
+html.light body {
+  background: #f0f4ff;
+  color: #1e293b;
+}
+html.light .animated-bg {
+  background: linear-gradient(-45deg, #e0e7ff, #f0f4ff, #e8f4ff, #ede9fe);
+  background-size: 400% 400%;
+}
+html.light .grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
 }
