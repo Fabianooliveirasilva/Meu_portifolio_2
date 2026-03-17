@@ -181,7 +181,7 @@ export default function AboutSection() {
                     {/* Avatar circle */}
                     <div className="absolute inset-[3px] rounded-full bg-[#0f172a] overflow-hidden">
                       <img
-                        src="/avatar.jpg"
+                        src="avatar.jpg"
                         alt="Fabiano Oliveira"
                         className="w-full h-full object-cover"
                       />
